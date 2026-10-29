@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xeno Store - Marketplace Akun Mobile Legends</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.png" type="image/png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0a0a0a',
+                        darkCard: '#141414',
+                        darkBorder: '#262626',
+                        xenoRed: '#dc2626',
+                        xenoRedHover: '#b91c1c',
+                        xenoYellow: '#eab308',
+                        xenoYellowHover: '#ca8a04'
+                    },
+                    fontFamily: {
+                        heading: ['Orbitron', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0a0a0a; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-heading { font-family: 'Orbitron', sans-serif; }
+        .yellow-glow { text-shadow: 0 0 10px rgba(234, 179, 8, 0.5); }
+        .red-glow-box { box-shadow: 0 0 15px rgba(220, 38, 38, 0.25); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #141414; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 3px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between custom-scrollbar">
+
+    <!-- Header Navigation -->
+<header class="sticky top-0 z-40 bg-darkBg/95 backdrop-blur-md border-b border-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.reload()">
+            <img src="logo.png" alt="Xeno Store Logo" class="w-12 h-12 rounded-xl object-cover border border-xenoYellow/40 shadow-lg shadow-xenoRed/30">
+            <div>
+                <span class="font-heading text-2xl font-black tracking-wider text-white">XENO<span class="text-xenoYellow">STORE</span></span>
+                <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Mobile Legends Marketplace</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
+        <!-- Hero Banner -->
+        <section class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-red-950/80 via-darkCard to-darkCard border border-xenoRed/30 p-8 sm:p-12 mb-10 red-glow-box">
+            <div class="relative z-10 max-w-2xl">
+                <span class="px-3 py-1 bg-xenoRed/20 text-xenoRed border border-xenoRed/40 text-xs font-bold rounded-full uppercase tracking-wider inline-block mb-3">
+                    <i class="fa-solid fa-bolt mr-1 text-xenoYellow"></i> Transaksi Instan & Aman
+                </span>
+                <h1 class="font-heading text-3xl sm:text-5xl font-black text-white leading-tight mb-4">
+                    JUAL BELI AKUN <span class="text-xenoYellow yellow-glow">MOBILE LEGENDS</span> TERPERCAYA
+                </h1>
+                <p class="text-gray-300 text-sm sm:text-base mb-6">
+                    Dapatkan akun MLBB impianmu mulai dari rank Epic, Mythic, hingga Global dengan garansi aman, tipe login Monsep/Unbind, dan proses cepat via WhatsApp.
+                </p>
+            </div>
+        </section>
+
+        <!-- Search & Filters -->
+        <section class="bg-darkCard border border-darkBorder rounded-xl p-5 mb-8 shadow-xl">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="md:col-span-2 relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-500"></i>
+                    <input type="text" id="searchInput" placeholder="Cari skin, hero, kode..." class="w-full bg-darkBg border border-darkBorder rounded-lg pl-10 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-xenoRed transition-colors">
+                </div>
+                <div>
+                    <select id="rankFilter" class="w-full bg-darkBg border border-darkBorder rounded-lg px-3 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-xenoRed">
+                        <option value="">Semua Rank</option>
+                        <option value="Mythic Immortal">Mythic Immortal</option>
+                        <option value="Mythic Glory">Mythic Glory</option>
+                        <option value="Mythic Honor">Mythic Honor</option>
+                        <option value="Mythic">Mythic</option>
+                        <option value="Legend">Legend</option>
+                        <option value="Epic">Epic</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="sortFilter" class="w-full bg-darkBg border border-darkBorder rounded-lg px-3 py-2.5 text-sm text-gray-300 focus:outline-none focus:border-xenoRed">
+                        <option value="newest">Terbaru</option>
+                        <option value="price-asc">Harga: Rendah ke Tinggi</option>
+                        <option value="price-desc">Harga: Tinggi ke Rendah</option>
+                        <option value="skins">Skin Terbanyak</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-4 pt-3 border-t border-darkBorder/60 text-xs text-gray-400">
+                Menampilkan <span id="accountCount" class="text-xenoYellow font-bold">0</span> akun ready
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-16">
+            <i class="fa-solid fa-circle-notch fa-spin text-4xl text-xenoRed mb-3"></i>
+            <p class="text-xs text-gray-400">Memuat data akun dari Firebase...</p>
+        </div>
+
+        <!-- Account Grid -->
+        <section id="accountsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+            <!-- Dynamic Cards -->
+        </section>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16 bg-darkCard/40 border border-darkBorder rounded-2xl">
+            <i class="fa-solid fa-ghost text-5xl text-gray-600 mb-3"></i>
+            <h3 class="text-lg font-bold text-gray-300">Akun Tidak Ditemukan</h3>
+            <p class="text-gray-500 text-xs mt-1">Coba gunakan kata kunci pencarian atau filter yang lain.</p>
+        </div>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-darkCard border border-darkBorder w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col custom-scrollbar">
+            <div class="p-4 border-b border-darkBorder flex justify-between items-center bg-darkBg">
+                <div class="flex items-center space-x-2">
+                    <span class="font-heading font-bold text-xenoYellow text-lg" id="modalCode">#KODE</span>
+                    <span class="text-xs px-2.5 py-0.5 rounded bg-xenoRed/20 text-xenoRed border border-xenoRed/30 font-semibold" id="modalStatus">READY</span>
+                </div>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xl w-8 h-8 rounded-lg hover:bg-darkBorder flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar">
+                <div class="relative rounded-xl overflow-hidden bg-black aspect-video border border-darkBorder">
+                    <img id="modalImage" src="" alt="Thumbnail" class="w-full h-full object-cover">
+                </div>
+
+                <div>
+                    <h2 id="modalTitle" class="text-xl font-bold text-white mb-2">Title</h2>
+                    <div class="text-2xl font-black font-heading text-xenoYellow" id="modalPrice">Rp 0</div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-darkBg p-3 rounded-lg border border-darkBorder text-center">
+                        <p class="text-[10px] text-gray-400 uppercase font-semibold">Rank</p>
+                        <p class="font-bold text-sm text-white mt-1" id="modalRank">-</p>
+                    </div>
+                    <div class="bg-darkBg p-3 rounded-lg border border-darkBorder text-center">
+                        <p class="text-[10px] text-gray-400 uppercase font-semibold">Jumlah Skin</p>
+                        <p class="font-bold text-sm text-xenoYellow mt-1" id="modalSkins">-</p>
+                    </div>
+                    <div class="bg-darkBg p-3 rounded-lg border border-darkBorder text-center">
+                        <p class="text-[10px] text-gray-400 uppercase font-semibold">Jumlah Hero</p>
+                        <p class="font-bold text-sm text-white mt-1" id="modalHeroes">-</p>
+                    </div>
+                    <div class="bg-darkBg p-3 rounded-lg border border-darkBorder text-center">
+                        <p class="text-[10px] text-gray-400 uppercase font-semibold">Winrate</p>
+                        <p class="font-bold text-sm text-green-400 mt-1" id="modalWinrate">-</p>
+                    </div>
+                </div>
+
+                <div class="bg-darkBg p-4 rounded-xl border border-darkBorder space-y-2">
+                    <div class="flex justify-between text-xs py-1 border-b border-darkBorder/60">
+                        <span class="text-gray-400">Tipe Login:</span>
+                        <span class="font-semibold text-gray-200" id="modalLogin">-</span>
+                    </div>
+                    <div class="flex justify-between text-xs py-1 border-b border-darkBorder/60">
+                        <span class="text-gray-400">Garansi:</span>
+                        <span class="font-semibold text-green-400">100% Aman & Anti-HB</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-2">Deskripsi Akun</h4>
+                    <p id="modalDesc" class="text-xs text-gray-400 whitespace-pre-line leading-relaxed bg-darkBg p-4 rounded-xl border border-darkBorder">-</p>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-darkBorder bg-darkBg flex justify-end">
+                <button id="modalBuyBtn" class="w-full sm:w-auto px-8 py-3 bg-xenoRed hover:bg-xenoRedHover text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-xenoRed/30 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Beli Sekarang Via WA</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-darkBg border-t border-darkBorder py-8 mt-12 text-center text-xs text-gray-500">
+        &copy; 2026 Xeno Store. All Rights Reserved.
+    </footer>
+
+    <!-- Firebase SDK Modular -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAmmCkWLpomo_2Nva36fugGvsO1gRXCDIk",
+            authDomain: "xeno-store-b7945.firebaseapp.com",
+            projectId: "xeno-store-b7945",
+            storageBucket: "xeno-store-b7945.firebasestorage.app",
+            messagingSenderId: "468587782142",
+            appId: "1:468587782142:web:963527c748f1c80d036aaf",
+            measurementId: "G-M30RSVQSRP"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const WA_NUMBER = "6281234567890"; // Ganti No WA Admin
+
+        let cachedAccounts = [];
+
+        async function fetchAccounts() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "accounts"));
+                cachedAccounts = [];
+                querySnapshot.forEach((doc) => {
+                    cachedAccounts.push({ id: doc.id, ...doc.data() });
+                });
+
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('accountsGrid').classList.remove('hidden');
+                renderAccounts();
+            } catch (err) {
+                console.error("Gagal mengambil data Firebase:", err);
+                document.getElementById('loadingState').innerHTML = `<p class="text-xenoRed text-xs font-bold">Gagal memuat database Firestore. Pastikan Firestore Mode Test sudah aktif.</p>`;
+            }
+        }
+
+        function formatRupiah(num) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+        }
+
+        function renderAccounts() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const rank = document.getElementById('rankFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+
+            let filtered = cachedAccounts.filter(acc => {
+                const matchSearch = (acc.title && acc.title.toLowerCase().includes(search)) || (acc.code && acc.code.toLowerCase().includes(search));
+                const matchRank = !rank || acc.rank === rank;
+                return matchSearch && matchRank;
+            });
+
+            if (sort === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+            if (sort === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+            if (sort === 'skins') filtered.sort((a,b) => b.skins - a.skins);
+
+            const grid = document.getElementById('accountsGrid');
+            const empty = document.getElementById('emptyState');
+            document.getElementById('accountCount').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            grid.innerHTML = filtered.map(acc => `
+                <div class="bg-darkCard border border-darkBorder hover:border-xenoRed/60 rounded-xl overflow-hidden transition-all duration-300 flex flex-col group red-glow-box">
+                    <div class="relative aspect-video overflow-hidden bg-darkBg">
+                        <img src="${acc.image || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'}" alt="${acc.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 left-3 bg-darkBg/90 backdrop-blur-md px-2.5 py-1 rounded text-xs font-heading font-bold text-xenoYellow border border-xenoYellow/30">
+                            ${acc.code}
+                        </div>
+                        <div class="absolute top-3 right-3 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${acc.status === 'Ready' ? 'bg-green-500/20 text-green-400 border border-green-500/40' : 'bg-red-500/20 text-red-400 border border-red-500/40'}">
+                            ${acc.status}
+                        </div>
+                    </div>
+
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="text-xs text-xenoRed font-bold mb-1 uppercase tracking-wide">
+                                <i class="fa-solid fa-trophy text-xenoYellow"></i> ${acc.rank}
+                            </div>
+                            <h3 class="font-bold text-white text-base leading-snug line-clamp-2 mb-3 group-hover:text-xenoYellow transition-colors">
+                                ${acc.title}
+                            </h3>
+                            
+                            <div class="grid grid-cols-3 gap-2 bg-darkBg p-2.5 rounded-lg border border-darkBorder mb-4 text-center">
+                                <div>
+                                    <span class="block text-[10px] text-gray-500 uppercase">Skin</span>
+                                    <span class="text-xs font-bold text-xenoYellow">${acc.skins}</span>
+                                </div>
+                                <div>
+                                    <span class="block text-[10px] text-gray-500 uppercase">Hero</span>
+                                    <span class="text-xs font-bold text-white">${acc.heroes}</span>
+                                </div>
+                                <div>
+                                    <span class="block text-[10px] text-gray-500 uppercase">WR</span>
+                                    <span class="text-xs font-bold text-green-400">${acc.winrate}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-baseline justify-between mb-4">
+                                <span class="text-xs text-gray-400">Harga:</span>
+                                <span class="font-heading font-black text-xl text-xenoYellow">${formatRupiah(acc.price)}</span>
+                            </div>
+                            <button onclick="window.openModal('${acc.id}')" class="w-full py-2.5 bg-darkBg border border-xenoRed/60 hover:bg-xenoRed text-white font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-eye"></i>
+                                <span>Lihat Detail & Beli</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.openModal = function(id) {
+            const acc = cachedAccounts.find(a => a.id === id);
+            if (!acc) return;
+
+            document.getElementById('modalCode').innerText = acc.code;
+            document.getElementById('modalTitle').innerText = acc.title;
+            document.getElementById('modalPrice').innerText = formatRupiah(acc.price);
+            document.getElementById('modalRank').innerText = acc.rank;
+            document.getElementById('modalSkins').innerText = acc.skins + ' Skin';
+            document.getElementById('modalHeroes').innerText = acc.heroes + ' Hero';
+            document.getElementById('modalWinrate').innerText = acc.winrate;
+            document.getElementById('modalLogin').innerText = acc.login;
+            document.getElementById('modalDesc').innerText = acc.description || '-';
+            document.getElementById('modalImage').src = acc.image || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80';
+
+            const buyBtn = document.getElementById('modalBuyBtn');
+            const message = `Halo Admin Xeno Store, saya berminat membeli akun:\n\n*Kode:* ${acc.code}\n*Judul:* ${acc.title}\n*Harga:* ${formatRupiah(acc.price)}`;
+            buyBtn.onclick = () => {
+                window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+            };
+
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        window.closeModal = function() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        document.getElementById('searchInput').addEventListener('input', renderAccounts);
+        document.getElementById('rankFilter').addEventListener('change', renderAccounts);
+        document.getElementById('sortFilter').addEventListener('change', renderAccounts);
+
+        fetchAccounts();
+    </script>
+</body>
+</html>
