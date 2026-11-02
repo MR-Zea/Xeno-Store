@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xeno Store - Marketplace Akun Mobile Legends</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon Logo -->
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google reCAPTCHA v2 Script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -44,17 +53,21 @@
 <body class="min-h-screen flex flex-col justify-between custom-scrollbar">
 
     <!-- Header Navigation -->
-<header class="sticky top-0 z-40 bg-darkBg/95 backdrop-blur-md border-b border-darkBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.reload()">
-            <img src="logo.png" alt="Xeno Store Logo" class="w-12 h-12 rounded-xl object-cover border border-xenoYellow/40 shadow-lg shadow-xenoRed/30">
-            <div>
-                <span class="font-heading text-2xl font-black tracking-wider text-white">Xeno<span class="text-xenoYellow">Store</span></span>
-                <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Mobile Legends Marketplace</p>
+    <header class="sticky top-0 z-40 bg-darkBg/95 backdrop-blur-md border-b border-darkBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.location.reload()">
+                <img src="logo.png" alt="Xeno Store Logo" class="w-12 h-12 rounded-xl object-cover border border-xenoYellow/40 shadow-lg shadow-xenoRed/30" onerror="this.src='https://via.placeholder.com/48?text=XENO'">
+                <div>
+                    <span class="font-heading text-2xl font-black tracking-wider text-white">XENO<span class="text-xenoYellow">STORE</span></span>
+                    <p class="text-[10px] text-gray-400 -mt-1 tracking-widest uppercase">Mobile Legends Marketplace</p>
+                </div>
+            </div>
+            <div class="text-xs text-gray-400 flex items-center gap-1.5 bg-darkCard px-3 py-1.5 rounded-lg border border-darkBorder">
+                <i class="fa-solid fa-fire text-xenoYellow"></i>
+                <span>Firebase Connected</span>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
@@ -108,7 +121,7 @@
         <!-- Loading State -->
         <div id="loadingState" class="text-center py-16">
             <i class="fa-solid fa-circle-notch fa-spin text-4xl text-xenoRed mb-3"></i>
-            <p class="text-xs text-gray-400">Memuat data akun...</p>
+            <p class="text-xs text-gray-400">Memuat data akun dari Firebase...</p>
         </div>
 
         <!-- Account Grid -->
@@ -124,7 +137,7 @@
         </div>
     </main>
 
-    <!-- Detail Modal -->
+    <!-- Detail Modal dengan reCAPTCHA -->
     <div id="detailModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-darkCard border border-darkBorder w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col custom-scrollbar">
             <div class="p-4 border-b border-darkBorder flex justify-between items-center bg-darkBg">
@@ -183,19 +196,16 @@
                 </div>
             </div>
 
-            <div class="p-4 border-t border-darkBorder bg-darkBg space-y-4">
-    <!-- Widget Google reCAPTCHA -->
-    <div class="flex justify-center">
-        <div class="g-recaptcha" data-sitekey="6Lde9AwuAAAAAOnTanZYlhYqXR0Y97xWp1Hbib5X" data-theme="dark"></div>
-    </div>
+            <!-- Footer Modal dengan Google reCAPTCHA -->
+            <div class="p-4 border-t border-darkBorder bg-darkBg flex flex-col sm:flex-row items-center justify-between gap-4">
+                <!-- Widget Google reCAPTCHA v2 -->
+                <div class="g-recaptcha" data-sitekey="6Lde9AwuAAAAAOnTanZYlhYqXR0Y97xWp1Hbib5X" data-theme="dark"></div>
 
-    <div class="flex justify-end">
-        <button id="modalBuyBtn" onclick="verifyAndCheckout()" class="w-full sm:w-auto px-8 py-3 bg-xenoRed hover:bg-xenoRedHover text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-xenoRed/30 flex items-center justify-center gap-2">
-            <i class="fa-brands fa-whatsapp text-lg"></i>
-            <span>Beli Sekarang Via WA</span>
-        </button>
-    </div>
-</div>
+                <button onclick="window.verifyAndCheckout()" class="w-full sm:w-auto px-8 py-3 bg-xenoRed hover:bg-xenoRedHover text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-xenoRed/30 flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Beli Sekarang Via WA</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -221,9 +231,12 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const WA_NUMBER = "6285855109257"; // Ganti No WA Admin
+        
+        // Nomor WA Admin (085855109257)
+        const WA_NUMBER = "6285855109257"; 
 
         let cachedAccounts = [];
+        let pendingWaMessage = "";
 
         async function fetchAccounts() {
             try {
@@ -238,7 +251,7 @@
                 renderAccounts();
             } catch (err) {
                 console.error("Gagal mengambil data Firebase:", err);
-                document.getElementById('loadingState').innerHTML = `<p class="text-xenoRed text-xs font-bold">Gagal memuat database Firestore. Pastikan Firestore Mode Test sudah aktif.</p>`;
+                document.getElementById('loadingState').innerHTML = `<p class="text-xenoRed text-xs font-bold">Gagal memuat database Firestore.</p>`;
             }
         }
 
@@ -324,51 +337,39 @@
             `).join('');
         }
 
-        // Variabel penampung pesan WhatsApp sementara
-let pendingWaMessage = "";
+        window.openModal = function(id) {
+            const acc = cachedAccounts.find(a => a.id === id);
+            if (!acc) return;
 
-// Modifikasi fungsi openModal untuk menyimpan pesan WA
-window.openModal = function(id) {
-    const acc = cachedAccounts.find(a => a.id === id);
-    if (!acc) return;
+            document.getElementById('modalCode').innerText = acc.code;
+            document.getElementById('modalTitle').innerText = acc.title;
+            document.getElementById('modalPrice').innerText = formatRupiah(acc.price);
+            document.getElementById('modalRank').innerText = acc.rank;
+            document.getElementById('modalSkins').innerText = acc.skins + ' Skin';
+            document.getElementById('modalHeroes').innerText = acc.heroes + ' Hero';
+            document.getElementById('modalWinrate').innerText = acc.winrate;
+            document.getElementById('modalLogin').innerText = acc.login;
+            document.getElementById('modalDesc').innerText = acc.description || '-';
+            document.getElementById('modalImage').src = acc.image || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80';
 
-    document.getElementById('modalCode').innerText = acc.code;
-    document.getElementById('modalTitle').innerText = acc.title;
-    document.getElementById('modalPrice').innerText = formatRupiah(acc.price);
-    document.getElementById('modalRank').innerText = acc.rank;
-    document.getElementById('modalSkins').innerText = acc.skins + ' Skin';
-    document.getElementById('modalHeroes').innerText = acc.heroes + ' Hero';
-    document.getElementById('modalWinrate').innerText = acc.winrate;
-    document.getElementById('modalLogin').innerText = acc.login;
-    document.getElementById('modalDesc').innerText = acc.description || '-';
-    document.getElementById('modalImage').src = acc.image || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80';
+            pendingWaMessage = `Halo Admin Xeno Store, saya berminat membeli akun:\n\n*Kode:* ${acc.code}\n*Judul:* ${acc.title}\n*Harga:* ${formatRupiah(acc.price)}`;
 
-    // Simpan teks pesan WA
-    pendingWaMessage = `Halo Admin Xeno Store, saya berminat membeli akun:\n\n*Kode:* ${acc.code}\n*Judul:* ${acc.title}\n*Harga:* ${formatRupiah(acc.price)}`;
-
-    // Reset reCAPTCHA setiap kali modal dibuka (jika fungsi grecaptcha tersedia)
-    if(typeof grecaptcha !== 'undefined') {
-        grecaptcha.reset();
-    }
-
-    document.getElementById('detailModal').classList.remove('hidden');
-}
-
-// Fungsi verifikasi sebelum lanjut ke WhatsApp
-window.verifyAndCheckout = function() {
-    // Ambil respon token dari Google reCAPTCHA
-    const recaptchaResponse = grecaptcha.getResponse();
-
-    if (recaptchaResponse.length === 0) {
-        alert("Mohon verifikasi reCAPTCHA terlebih dahulu (Centang 'Saya bukan robot')!");
-        return;
-    }
-
-    // Jika sudah diverifikasi, buka WhatsApp
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pendingWaMessage)}`, '_blank');
-};
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.reset();
+            }
 
             document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        window.verifyAndCheckout = function() {
+            if (typeof grecaptcha !== 'undefined') {
+                const response = grecaptcha.getResponse();
+                if (response.length === 0) {
+                    alert("Mohon verifikasi reCAPTCHA terlebih dahulu (Centang 'Saya bukan robot')!");
+                    return;
+                }
+            }
+            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pendingWaMessage)}`, '_blank');
         }
 
         window.closeModal = function() {
@@ -380,8 +381,6 @@ window.verifyAndCheckout = function() {
         document.getElementById('sortFilter').addEventListener('change', renderAccounts);
 
         fetchAccounts();
-
-
     </script>
 </body>
 </html>
