@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         tailwind.config = {
             theme: {
@@ -182,12 +183,19 @@
                 </div>
             </div>
 
-            <div class="p-4 border-t border-darkBorder bg-darkBg flex justify-end">
-                <button id="modalBuyBtn" class="w-full sm:w-auto px-8 py-3 bg-xenoRed hover:bg-xenoRedHover text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-xenoRed/30 flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Beli Sekarang Via WA</span>
-                </button>
-            </div>
+            <div class="p-4 border-t border-darkBorder bg-darkBg space-y-4">
+    <!-- Widget Google reCAPTCHA -->
+    <div class="flex justify-center">
+        <div class="g-recaptcha" data-sitekey="6Lde9AwuAAAAAOnTanZYlhYqXR0Y97xWp1Hbib5X" data-theme="dark"></div>
+    </div>
+
+    <div class="flex justify-end">
+        <button id="modalBuyBtn" onclick="verifyAndCheckout()" class="w-full sm:w-auto px-8 py-3 bg-xenoRed hover:bg-xenoRedHover text-white font-bold text-sm rounded-xl transition-all shadow-lg shadow-xenoRed/30 flex items-center justify-center gap-2">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>Beli Sekarang Via WA</span>
+        </button>
+    </div>
+</div>
         </div>
     </div>
 
@@ -316,26 +324,49 @@
             `).join('');
         }
 
-        window.openModal = function(id) {
-            const acc = cachedAccounts.find(a => a.id === id);
-            if (!acc) return;
+        // Variabel penampung pesan WhatsApp sementara
+let pendingWaMessage = "";
 
-            document.getElementById('modalCode').innerText = acc.code;
-            document.getElementById('modalTitle').innerText = acc.title;
-            document.getElementById('modalPrice').innerText = formatRupiah(acc.price);
-            document.getElementById('modalRank').innerText = acc.rank;
-            document.getElementById('modalSkins').innerText = acc.skins + ' Skin';
-            document.getElementById('modalHeroes').innerText = acc.heroes + ' Hero';
-            document.getElementById('modalWinrate').innerText = acc.winrate;
-            document.getElementById('modalLogin').innerText = acc.login;
-            document.getElementById('modalDesc').innerText = acc.description || '-';
-            document.getElementById('modalImage').src = acc.image || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80';
+// Modifikasi fungsi openModal untuk menyimpan pesan WA
+window.openModal = function(id) {
+    const acc = cachedAccounts.find(a => a.id === id);
+    if (!acc) return;
 
-            const buyBtn = document.getElementById('modalBuyBtn');
-            const message = `Halo Admin Xeno Store, saya berminat membeli akun:\n\n*Kode:* ${acc.code}\n*Judul:* ${acc.title}\n*Harga:* ${formatRupiah(acc.price)}`;
-            buyBtn.onclick = () => {
-                window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
-            };
+    document.getElementById('modalCode').innerText = acc.code;
+    document.getElementById('modalTitle').innerText = acc.title;
+    document.getElementById('modalPrice').innerText = formatRupiah(acc.price);
+    document.getElementById('modalRank').innerText = acc.rank;
+    document.getElementById('modalSkins').innerText = acc.skins + ' Skin';
+    document.getElementById('modalHeroes').innerText = acc.heroes + ' Hero';
+    document.getElementById('modalWinrate').innerText = acc.winrate;
+    document.getElementById('modalLogin').innerText = acc.login;
+    document.getElementById('modalDesc').innerText = acc.description || '-';
+    document.getElementById('modalImage').src = acc.image || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80';
+
+    // Simpan teks pesan WA
+    pendingWaMessage = `Halo Admin Xeno Store, saya berminat membeli akun:\n\n*Kode:* ${acc.code}\n*Judul:* ${acc.title}\n*Harga:* ${formatRupiah(acc.price)}`;
+
+    // Reset reCAPTCHA setiap kali modal dibuka (jika fungsi grecaptcha tersedia)
+    if(typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset();
+    }
+
+    document.getElementById('detailModal').classList.remove('hidden');
+}
+
+// Fungsi verifikasi sebelum lanjut ke WhatsApp
+window.verifyAndCheckout = function() {
+    // Ambil respon token dari Google reCAPTCHA
+    const recaptchaResponse = grecaptcha.getResponse();
+
+    if (recaptchaResponse.length === 0) {
+        alert("Mohon verifikasi reCAPTCHA terlebih dahulu (Centang 'Saya bukan robot')!");
+        return;
+    }
+
+    // Jika sudah diverifikasi, buka WhatsApp
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(pendingWaMessage)}`, '_blank');
+};
 
             document.getElementById('detailModal').classList.remove('hidden');
         }
@@ -349,6 +380,8 @@
         document.getElementById('sortFilter').addEventListener('change', renderAccounts);
 
         fetchAccounts();
+
+
     </script>
 </body>
 </html>
